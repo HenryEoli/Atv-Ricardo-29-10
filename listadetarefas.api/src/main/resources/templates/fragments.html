@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<tr th:fragment="linha-tarefa" th:id="'tarefa-' + ${tarefa.id}">
+    <td th:classappend="${tarefa.concluida} ? 'concluida-texto'">
+        <input type="checkbox" th:checked="${tarefa.concluida}"
+               hx-post="@{/tarefas/{id}/toggle(id=${tarefa.id})}"
+               hx-target="'#tarefa-' + ${tarefa.id}"
+               hx-swap="outerHTML">
+    </td>
+    <td th:text="${tarefa.titulo}" th:classappend="${tarefa.concluida} ? 'concluida-texto'">
+        Título da Tarefa
+    </td>
+    <td>
+        <button class="btn-delete"
+                hx-delete="@{/tarefas/{id}(id=${tarefa.id})}"
+                hx-target="'#tarefa-' + ${tarefa.id}"
+                hx-swap="outerHTML"
+                hx-confirm="Tem certeza que deseja apagar esta tarefa?">
+            Deletar
+        </button>
+    </td>
+</tr>
+</body>
+</html>
